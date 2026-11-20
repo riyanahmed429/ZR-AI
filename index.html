@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZR AI - Riyan Ahmed</title>
+<style>
+body{background:#0f0f0f;color:white;font-family:Arial;text-align:center;padding:20px}
+.box{background:#1e1e1e;max-width:600px;margin:auto;padding:20px;border-radius:15px}
+input{width:90%;padding:12px;border-radius:10px;border:none;margin:10px 0}
+button{background:#ff0055;color:white;border:none;padding:12px 25px;border-radius:10px;font-size:16px}
+.chat{text-align:left;background:#2a2a2a;padding:15px;border-radius:10px;margin-top:15px;min-height:200px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>ZR AI 🔥</h1>
+<p>Owner: Riyan Ahmed (CEO)</p>
+<input id="q" placeholder="Ja iccha likh... jemon: 100 word e paragraph de, joke bolo, 5+5">
+<br>
+<button onclick="ask()">Ask ZR AI</button>
+<div class="chat" id="ans">ZR AI: Valo asi Riyan! Ja iccha jiga, ami ans dimu!</div>
+</div>
+<script>
+function ask(){
+let m=document.getElementById("q").value.toLowerCase();
+let a=document.getElementById("ans");
+let r="";
+if(m.includes("joke")) r="Teacher: 2+2 koto? Riyan: 22 sir! Pasapasi boshaile to 22 e hoy! 😂";
+else if(m.includes("messi")) r="Messi Argentina er player! Messi 8 bar Ballon d'Or jitse! GOAT!";
+else if(m.includes("bangladesh")) r="Bangladesh er rajdhani Dhaka! Sundarban ase, Cox's Bazar ase!";
+else if(m.includes("pani")) r="Pani er formula H2O! 100 degree te fut e, 0 degree te borof hoy!";
+else if(m.includes("namaz")) r="Din e 5 bar namaz - Fajr, Zohor, Asr, Magrib, Esha!";
+else if(m.includes("ke tui")||m.includes("tor nam")) r="Ami ZR AI, amar owner Riyan Ahmed!";
+else if(m.includes("owner")) r="Amar owner / CEO holo Riyan Ahmed, tui!";
+else if(m.includes("word")||m.includes("paragraph")||m.includes("golpo")){
+let n=parseInt(m.match(/\d+/))||100;
+let topic=m.replace(/\d+/g,"").replace("word","").replace("paragraph","").replace("golpo","").replace("de","").trim()||"Riyan Ahmed";
+let base=topic+" amader jibone onek gurutto purno. Riyan Ahmed mone kore "+topic+" practice korle je keo valo korte pare. ";
+let words=base.split(" ");
+while(words.length<n) words.push(topic+" amader ke egiye niye jay.");
+r="Hoise Riyan! "+n+" word er Paragraph - "+topic+"\n\n"+words.slice(0,n).join(" ");
+}
+else if(m.match(/[0-9]+\s*[\+\-\*\/]\s*[0-9]+/)){
+try{r=m+" = "+eval(m)+" Riyan, hoise!";}
+catch(e){r="Math ta vul hoise Riyan!";}
+}
+else if(m.includes("kemon")) r="Valo asi Riyan! Tui kemon?";
+else if(m.includes("free fire")) r="Free Fire ekta Battle Royale game! Garena banaishe!";
+else if(m.includes("google")) r="Google banaishe Larry Page ar Sergey Brin, 1998 sale!";
+else r="Bujhsi Riyan, tui koili '"+m+"' - eita onek sundor kotha! Aro jiga, ami ans dimu!";
+a.innerText="ZR AI: "+r;
+}
+</script>
+</body>
+</html>
