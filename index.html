@@ -425,3 +425,197 @@ t=t.split(k).join(" "+map[k]+" ");
 }
 return t;
 }
+const PICS={
+"biral":"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600",
+"kukur":"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600",
+"goru":"https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600",
+"ful":"https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600",
+"golap":"https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=600",
+"iphone":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600",
+"samsung":"https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600",
+"laptop":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600",
+"gari":"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600",
+"bike":"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600",
+"biman":"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600",
+"cox":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+"somudro":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+"pahar":"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
+"nodi":"https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600",
+"chand":"https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=600",
+"messi":"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600",
+"football":"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600",
+"cricket":"https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600",
+"biryani":"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600",
+"pizza":"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600",
+"burger":"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600",
+"mango":"https://images.unsplash.com/photo-1553279768-865429fa0078?w=600",
+"aam":"https://images.unsplash.com/photo-1553279768-865429fa0078?w=600",
+"school":"https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600",
+"boi":"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600",
+"mosjid":"https://images.unsplash.com/photo-1564769625905-50e93615e769?w=600",
+"camera":"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600",
+"ghori":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+};
+const PEOPLE={
+"mrbeast":"MrBeast - Jimmy Donaldson (1998, America): Dekhte lomba, forsa, halka dari, sobsomoy hasi mukh. Prithibir sobcheye boro YouTuber - 300 Million+ Subscriber. Boro challenge, taka dey, ghor dey. Bari North Carolina.",
+"tawhid":"Tawhid Afridi (1997, Barishal, Bangladesh): Dekhte forsa, lomba, chul style kora, dari halka, stylish. Bangladesh er sobcheye famous YouTuber - 7 Million+. Prank, Challenge, Vlog banay. Bari Barishal.",
+"messi":"Lionel Messi (1987, Argentina): Dekhte 5 fit 7 inch, choto khato, dari ase, tattoo ase, chul brown. Prithibir sera footballer. 8 bar Ballon d'Or. 2022 sale World Cup jitsen. Pic niche dilam:",
+"ronaldo":"Cristiano Ronaldo (1985, Portugal): Dekhte 6 fit 2 inch, lomba, peshi wala sorir, chul choto style. 5 bar Ballon d'Or. Sobcheye beshi goal - 900+.",
+"charli":"Charli D'Amelio (2004, America): Dekhte forsa, lomba brown chul, mishti hasi. TikTok er Queen - 150M+ follower. Dance kore famous.",
+"khaby":"Khaby Lame (2000, Italy): Dekhte lomba, kalo, hat diye isara kore, kotha bole na. TikTok 1 number - 160M+ follower.",
+"shakib":"Shakib Al Hasan (1987, Magura): Dekhte majhari lomba, shyamla, chul choto. Bangladesh er sera cricketer, All-rounder.",
+"elon":"Elon Musk (1971): Dekhte lomba, forsa, chul halka. Tesla, SpaceX, X er malik. Prithibir dhoni manus. Rocket banay, Mars e jete chay.",
+"youtuber":"Bangladesh er Famous YouTuber: Tawhid Afridi - 7M+, Rakib Hossain - Travel, Prottoy Heron - Comedy, Salman Muqtadir, 10 Minute School - Ayman Sadiq. Bideshi: MrBeast 300M, PewDiePie 110M, T-Series 250M.",
+"tiktok":"TikTok Famous: Charli D'Amelio - 150M+, Dance. Khaby Lame - 160M+, kotha na bole funny video. Bella Poarch - 90M+. Bangladesh e Jannat, Rafi famous."
+};
+let QA={};
+QA["tumi ke"]="Ami ZR AI. Tor bondhu, tor shikkhok, tor Google. Voice e kotha bolte pari, Pic dekhate pari, YouTuber, TikToker sob chini.";
+QA["tomar nam ki"]="Amar nam ZR AI. ZR mane Zero to Rocket - tui zero theke rocket er moto upore uthbi.";
+QA["bangladesh er rajdhani ki"]="Bangladesh er rajdhani Dhaka. Dhaka ke Mosjid er Shohor bola hoy. Buriganga nodir tire Dhaka.";
+QA["bangladesh kobe swadhin"]="Bangladesh swadhin hoy 26 March 1971 sale ghoshona, 16 December 1971 sale Bijoy. 9 mash juddho hoy.";
+QA["bangladesh er jatiyo mach ki"]="Jatiyo mach Ilish. Ilish ke mach er raja bola hoy. Padma er Ilish sobcheye mojar.";
+QA["bangladesh er jatiyo fol ki"]="Jatiyo fol Kathal. Kathal boro fol, misti.";
+QA["bangladesh er jatiyo ful ki"]="Jatiyo ful Shapla. Shapla pani te fute.";
+QA["bangladesh er jatiyo poshu ki"]="Jatiyo poshu Royal Bengal Tiger. Sundarban e thake.";
+QA["cox bazar koto km"]="Cox's Bazar 120 km lomba, prithibir dirghotomo somudro soikot.";
+QA["sundarban kothay"]="Sundarban Khulna, Satkhira, Bagerhat e. Prithibir brihottomo mangrove bon.";
+QA["padma setu koto km"]="Padma Setu 6.15 km lomba. Nijer takay banano. Bangladesh er gorbo.";
+QA["namaz koy wakto"]="Namaz din e 5 wakto: Fajr, Zohor, Asr, Magrib, Esha. Fajr - Vor bela, Zohor - Dupur, Asr - Bikal, Magrib - Sondha, Esha - Rat.";
+QA["roza koyta"]="Roza Romjan mas e 30 ta foroz. Seheri kheye suru, Iftar diye vange.";
+QA["quran e koy sura"]="Quran e 114 sura, 6236 ayat. Prothom sura Al-Fatiha, boro sura Al-Baqarah. Prothom ohi Iqra - Poro.";
+QA["nobi ke"]="Hazrat Muhammad (SAW) Islam er sesh nobi. Makkah te 570 sale jonmo. 40 bochor e Nobi hon.";
+QA["pani keno khai"]="Pani khai karon pani chara amra bachte parbo na. Manob deher 60% pani. Din e 2-3 litre pani khawa uchit.";
+QA["gach keno lagabo"]="Gach lagabo karon gach oxygen dey, chaya dey, fol dey, ful dey, brishti anay, bonna theke bachay. Gach lagao, poribesh bachao.";
+QA["brishti keno hoy"]="Brishti hoy karon Surjer gorom e somudro, nodi er pani bashpo hoye upore othe. Upore giye thanda hoye megh hoy. Megh vari hoye gele brishti hoye pore.";
+QA["surjo keno othe"]="Surjo othe na, Prithibi ghure. Prithibi nijer char dike ghure - tai din rat hoy. Surjo purbo dike othe, poschim e dube - eita Prithibi ghorar karone mone hoy.";
+QA["chand e ke gesilo"]="Chand e prothom gesilen Neil Armstrong - 1969 sale, 20 July. Tar sathe chilen Buzz Aldrin, Michael Collins.";
+QA["computer ke banaisi"]="Computer er jonok Charles Babbage. Tini 1837 sale Analytical Engine banan. Prothom computer ENIAC - 1946 sale.";
+QA["internet ke banaisi"]="Internet 1969 sale ARPANET theke suru. Tim Berners-Lee 1989 sale WWW banan. Bangladesh e 1996 sale internet ase.";
+QA["google ke banaisi"]="Google 1998 sale Larry Page ar Sergey Brin banan. Google er CEO Sundar Pichai. YouTube, Gmail, Maps sob Google er.";
+QA["facebook ke banaisi"]="Facebook 2004 sale Mark Zuckerberg banan. Ekhon nam Meta. Instagram, WhatsApp sob Meta er.";
+QA["iphone ke banaisi"]="Iphone Apple company banaisi. Steve Jobs 2007 sale prothom Iphone anen. Apple er malik chilen Steve Jobs, ekhon Tim Cook.";
+QA["taka ke banaisi"]="Taka age chilo na. Age manus jinis diye jinis nito. Tarpor dhatu er mudra, tarpor kagoj er taka. Bangladesh Bank taka chape.";
+QA["sobcheye boro mach ki"]="Sobcheye boro mach Whale Shark - 12 meter lomba. Sobcheye boro prani Nil Timir - 30 meter lomba.";
+QA["biral ki khay"]="Biral mach, mangso, dudh khay. Biral er priyo khabar mach. Biral ke chocolate deya uchit na.";
+QA["kukur ki khay"]="Kukur vat, mangso, ruti khay. Kukur manus er sobcheye biswosto bondhu.";
+QA["porasunay valo korbo kivabe"]="Porasunay valo korte: 1. Protidin 2 ghonta poro 2. Mobile dure rakho 3. Na bujhle jigges koro 4. Likhe poro 5. Vor bela poro 6. Ghum 7-8 ghonta 7. Namaz poro 8. Maa-Baba er dua nao.";
+QA["math e valo korbo kivabe"]="Math e valo korte protidin 10 ta onko koro. Sutro mukhosto koro, bujhe koro. Math e practice e asol.";
+QA["english e valo korbo kivabe"]="English e valo korte protidin 10 ta word mukhosto koro. Protidin 1 ta paragraph poro. English video dekho. Vul korte voy peo na.";
+QA["valo manus kivabe hobo"]="Valo manus hote: Sot kotha bolo, Maa-Baba ke somman koro, Gorib ke sahajjo koro, Churi, Mittha koro na, Porasuna koro.";
+QA["mobile ki kharap"]="Mobile kharap na, beshi chalano kharap. Mobile diye porasuna jay. Kintu din e 5-6 ghonta TikTok, Game khelle chokh nosto hoy. Din e 1 ghonta jothesto.";
+QA["ghum keno dorkar"]="Ghum dorkar karon ghum e matha rest pay, sorir boro hoy, pora mone thake. Baccha der 8-9 ghonta ghum dorkar. Rat 10 ta te ghumao, Vor 6 ta te utho.";
+QA["doctor hote ki lage"]="Doctor hote SSC, HSC te Biggan e valo korte hoy. Medical Admission e chance pete hoy. MBBS 5 bochor, Internship 1 bochor. Mot 11-12 bochor.";
+QA["police ki kore"]="Police amader ke nirapod rakhe. Churi, Dakati hole police dhore. Bipode porle 999 e phone koro.";
+QA["khabar keno khai"]="Khabar khai karon khabar theke shokti pai. Khabar chara amra bachte parbo na. Vat, Mach, Dal, Sobji, Fol - sob e shokti dey.";
+let DB={...PEOPLE,...QA};
+DB["bangladesh"]="Bangladesh - Rajdhani Dhaka. Swadhinota 26 March 1971, Bijoy 16 Dec 1971. Sundarban, Cox's Bazar 120 km, Ilish mach, Kathal, Shapla. Bibhag 8 ti. Jonosongkha 17 koti. Padma Setu gorbo. Orthoniti: Garments, Probashi ay, Krishi. Nodi: Padma, Meghna, Jamuna.";
+DB["gach"]="Gach amader sobcheye boro bondhu. Gach chara jibon somvob na. Gach oxygen dey, CO2 ney, chaya dey, fol dey, ful dey, kaatth dey, oshudh dey. 1 ti boro gach din e 1 jon manus er oxygen dey. Gach katle gorom bare, brishti kome jay. Gach lagao, poribesh bachao.";
+DB["nodi"]="Nodi Bangladesh er pran. 700 er beshi nodi ase. Padma, Meghna, Jamuna - 3 ta boro nodi. Nodi mach dey, pani dey, nouka chole, khet e pani dey. Padma te Ilish pawa jay.";
+DB["maa"]="Maa prithibir sobcheye boro sompod. Maa amader ke 10 mash pet e rakhen, jonmo den, boro koren. Maa er payer niche Jannat. Maa er hat er ranna prithibir sobcheye mojar.";
+DB["baba"]="Baba poribar er bot gach. Baba sara din kosto kore - Baire kaj kore, taka ane, amader ke khaway, poray. Baba nijer jama purano pore, baccha der notun jama kine den.";
+DB["school"]="School amader 2nd bari. School e porasuna, bondhu, valo manus howa shikhi. School e shikkhok ra Maa-Baba er moto valobasen. Protidin school e jao, class e monojog dao.";
+DB["doctor"]="Doctor amader jibon bachan. Doctor hote 11-12 bochor porasuna lage. SSC, HSC, Medical Admission, MBBS 5 bochor, Internship 1 bochor.";
+DB["football"]="Football prithibir sobcheye jonopriyo khela. 11 jon kore 2 dol, 90 minute. World Cup 4 bochor por por. Brazil 5 bar, Argentina 3 bar jitse. Messi 8 bar Ballon d'Or, Ronaldo 5 bar.";
+DB["borsha"]="Borsha Ashar, Srabon. Brishti hoy, nodi te pani bare, khet e dhan hoy, mach pawa jay. Borsha te Khichuri, Ilish vaja khete moja.";
+DB["biryani"]="Biryani Bangladesh er sobcheye priyo khabar. Kacchi, Paka, Tehari - 3 prokar. Haji Biryani 1939 sale suru. Kacchi te Khasi er mangso, Alu, Basmati chal.";
+DB["porasuna"]="Porasunay Valo Korar Upay: 1. Protidin 2 ghonta poro 2. Mobile dure rakho 3. Na bujhle jigges koro 4. Likhe poro 5. Vor bela poro 6. Ghum 7-8 ghonta 7. Namaz poro 8. Maa-Baba er dua nao.";
+DB["islam"]="Islam shantir dhormo. 5 stombho: Kalema, Namaz (5 wakto), Roza (30 din), Zakat, Hajj. Allah ek. Nobi Muhammad (SAW) sesh nobi. Quran 114 sura, 6236 ayat.";
+DB["pani"]="Pani - H2O. 100 degree te fute, 0 degree te borof hoy. Manob deher 60% pani. Din e 2-3 litre khawa uchit.";
+DB["surjo"]="Surjo ekti tara. Alo aste 8 min 20 sec lage. Surjo chara jibon somvob na.";
+DB["chand"]="Chand Prithibir ekmatro upogroho. Durotto 3,84,400 km. 1969 sale Neil Armstrong prothom paa rakhen.";
+let EXTRA=["Gach","Nodi","Pahar","Somudro","Akash","Batas","Mati","Aghun","Bidut","Alo","Somoy","Ghum","Khabar","Bazar","College","Chakri","Bebsha","Taka","Bank","Biman","Train","Gari","Mobile","Robot","Hospital","Oshudh","Jor","Thanda","Matha","Chokh","Hat","Pa","Sorir","Mon","Valobasa","Bondhu","Poribar","Vai","Bon","Shikkhok","Chatra","Boi","Kolom","Porikkha","Sopno","Suk","Hashi","Kanna","Sahos","Dhoirjo","Sotota","Porisrom","Sofolota","Bijoy","Swadhinota","Muktijuddho","Vasha","Ekushey","Neta","Sorkar","Ain","Police","Sena","Cricket","Tennis","Dour","Satar","Yoga","Roza","Hajj","Zakat","Hadis","Mosjid","Dhormo","Allah","Jannat","Dua","Iman","Pakhi","Mach","Poshu","Manus","Tara","Ful","Fol","Sobji","Dhan","Pat","Alu","Dudh","Dim","Polao","Pitha","Mishti","Cha","Coffee","Borsha","Shit","Grisso","Bosonto","Megh","Brishti","Jhor","Bonna"];
+EXTRA.forEach(t=>{
+let s=t+" - Bistarit: "+t+" amader jibone onek guruttwopurno. "+t+" somporke janle amra onek kisu shikhte pari. Eta amader chinta ke boro kore. Protidin "+t+" niye chorcha korle jekeo valo korte pare. "+t+" er Itihas onek purano. "+t+" er Upokarita onek. "+t+" valo kore shikhle porikkhay valo number paben.";
+let big=""; for(let i=0;i<6;i++) big+=s+"\n\n";
+if(!DB[t.toLowerCase()]) DB[t.toLowerCase()]=big;
+});
+function getAns(m){
+let raw=m;
+let low=normalizeBangla(m);
+let wantPic=low.includes("pic")
+||low.includes("chobi")
+||low.includes("photo")
+||low.includes("image");
+if(low.match(/[0-9]+\s*[\+\-\*\/]\s*[0-9]+/)){
+try{return "Somadhan: "+m+" = "+eval(m);}catch(e){}
+}
+if(low.includes("word")
+||low.includes("paragraph")
+||low.includes("rochona")
+||low.includes("essay")){
+let n=parseInt(m.match(/\d+/))||100;
+let topic=low.replace(/\d+/g,"")
+.replace(/word/g,"")
+.replace(/paragraph/g,"")
+.replace(/rochona/g,"")
+.replace(/essay/g,"")
+.replace(/de/g,"")
+.replace(/likh/g,"")
+.replace(/bolo/g,"")
+.replace(/pic/g,"").trim()||"Porasuna";
+let base=topic+" amader jibone onek guruttwopurno. "+topic+" somporke janle amra onek kisu shikhte pari. ";
+let words=base.split(" ");
+while(words.length<n)
+words.push(topic+" amader ke egiye niye jay.");
+return topic+" - "+n+" Word er Paragraph\n\n"
++words.slice(0,n).join(" ")+"\n\nWord Count: "+n;
+}
+if(wantPic){
+for(let k in PICS){
+if(low.includes(k))
+return "Ei nao "+k+" er pic:\n<img src='"
++PICS[k]+"'>\n\n"+(PEOPLE[k]||DB[k]||"");
+}
+for(let k in PEOPLE){
+if(low.includes(k)) return PEOPLE[k];
+}
+return "Kiser pic chai? Bolo: 'Biral er pic de' ba 'Messi er pic de'.";
+}
+if(low.includes("messi"))
+return PEOPLE["messi"]+"\n<img src='"+PICS["messi"]+"'>";
+if(low.includes("kemon")&&low.includes("dekhte")){
+for(let k in PEOPLE){
+if(low.includes(k)) return PEOPLE[k];
+}
+}
+for(let k in QA){ if(low.includes(k)) return QA[k]; }
+for(let k in PEOPLE){ if(low.includes(k)) return PEOPLE[k]; }
+for(let k in DB){ if(low.includes(k)) return DB[k]; }
+if(low.includes("tui")||low.includes("tumi")){
+if(low.includes("valo")||low.includes("kemon")
+||low.includes("aso")||low.includes("asos"))
+return "Ami valo asi, Alhamdulillah! Tui kemon asos? Bol, ki jante chas?";
+if(low.includes("pagol")||low.includes("boka"))
+return "Haha, ami pagol na, ami ZR AI - tor bondhu. Bol, ki jante chas?";
+return "Hae bol, shuntasi. Ki jante chas? Bolo - 'Messi er pic de' ba 'Gach somporke bolo'.";
+}
+if(low.includes("hello")||low.includes("hi")
+||low.includes("assalam")||low.includes("halo"))
+return "Assalamu Alaikum! Valo aso? Bol, ki jante chas? Messi er pic dekhbi? Na Gach somporke bolbo?";
+if(low.includes("kemon"))
+return "Alhamdulillah valo asi. Tumi kemon aso?";
+if(low.includes("dhonnobad")||low.includes("thanks"))
+return "Tor e dhonnobad! Aro kichu lagle bol.";
+if(low.includes("bye"))
+return "Allah Hafez! Valo thakbi.";
+if(low.includes("youtuber")||low.includes("youtube"))
+return PEOPLE["youtuber"];
+if(low.includes("tiktok")) return PEOPLE["tiktok"];
+let topic=raw.replace(/[?।!]/g,"").trim();
+if(topic.length>1){
+return topic+" somporke:\n\n"+topic
++" amader jibone onek guruttwopurno. "
++topic+" somporke janle amra onek kisu shikhte pari.";
+}
+return "Hae bol, shuntasi. Ki jante chas?";
+}
+function ask(){
+let inp=document.getElementById("q");
+let v=inp.value.trim();if(!v) return;
+let cleaned=cleanRepeat(v);
+addMsg(cleaned,"me",false);inp.value="";
+setTimeout(()=>{addMsg(getAns(cleaned),"ai");},300);
+}
+</script>
+</body>
+</html>
