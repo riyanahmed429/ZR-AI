@@ -3,53 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZR AI - Riyan Ahmed</title>
+<title>ZR AI</title>
 <style>
-body{background:#0f0f0f;color:white;font-family:Arial;text-align:center;padding:20px}
-.box{background:#1e1e1e;max-width:600px;margin:auto;padding:20px;border-radius:15px}
-input{width:90%;padding:12px;border-radius:10px;border:none;margin:10px 0}
-button{background:#ff0055;color:white;border:none;padding:12px 25px;border-radius:10px;font-size:16px}
-.chat{text-align:left;background:#2a2a2a;padding:15px;border-radius:10px;margin-top:15px;min-height:200px;white-space:pre-wrap}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f9fa;color:#1a1a1a;font-family:'Segoe UI',Arial,sans-serif}
+.top{background:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e5e5;position:sticky;top:0}
+.top b{font-size:20px;font-weight:800}
+.top span{font-size:12px;color:#666;background:#f0f0f0;padding:5px 10px;border-radius:20px}
+.wrap{max-width:760px;margin:auto;padding:16px;padding-bottom:150px}
+.hero{text-align:center;padding:20px 10px 8px}
+.hero h1{font-size:30px}
+.hero p{color:#666;margin-top:8px;line-height:1.6}
+.voicebox{background:#111;color:#fff;padding:16px;border-radius:16px;text-align:center;margin:14px 0}
+.micbtn{background:#ff0055;color:#fff;border:none;width:70px;height:70px;border-radius:50%;font-size:32px;cursor:pointer;margin:12px 0}
+.micbtn.listening{background:#00c853}
+.cat{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.cat button{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:20px;cursor:pointer}
+.msg{margin:10px 0;display:flex}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:88%;padding:12px 15px;border-radius:16px;line-height:1.7;font-size:15px;white-space:pre-wrap}
+.me .bubble{background:#111;color:#fff}
+.ai .bubble{background:#fff;border:1px solid #e5e5e5}
+.bubble img{width:100%;border-radius:12px;margin-top:8px;max-height:320px;object-fit:cover}
+.speak{margin-top:8px;background:#f0f0f0;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;font-size:12px}
+.bar{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px;border-top:1px solid #e5e5e5}
+.bar-in{max-width:760px;margin:auto;display:flex;gap:8px;align-items:center}
+input{flex:1;padding:14px;border-radius:25px;border:1px solid #ddd;outline:none;font-size:15px;background:#f8f9fa}
+.micmini{background:#ff0055;color:#fff;border:none;width:48px;height:48px;border-radius:50%;font-size:20px;cursor:pointer}
+.send{background:#111;color:#fff;border:none;padding:0 20px;height:48px;border-radius:25px;font-size:18px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="box">
-<h1>ZR AI 🔥</h1>
-<p>Owner: Riyan Ahmed (CEO)</p>
-<input id="q" placeholder="Ja iccha likh... jemon: 100 word e paragraph de, joke bolo, 5+5">
-<br>
-<button onclick="ask()">Ask ZR AI</button>
-<div class="chat" id="ans">ZR AI: Valo asi Riyan! Ja iccha jiga, ami ans dimu!</div>
+<div class="top"><b>ZR AI</b><span>300KB REAL KNOWLEDGE</span></div>
+<div class="wrap">
+<div class="hero"><h1>Apnake Kivabe Sahajjo Korte Pari?</h1><p>Mukhe bolun ba likhun - 300KB asol knowledge, Voice, Pic, YouTuber, TikToker, Famous - sob.</p></div>
+<div class="voicebox">
+<b style="color:#fff">🎙️ Voice e Kotha Bolun</b>
+<p style="color:#bbb;font-size:13px">Mic e click korun, tarpor bolun - "Messi ke?"</p>
+<button class="micbtn" id="bigMic" onclick="startVoice()">🎙️</button>
+<p id="voiceText" style="color:#fff">Mic e click kore bolun...</p>
+<div><button onclick="toggleSpeak()" id="speakBtn" style="background:#fff;color:#111;border:none;padding:8px 16px;border-radius:20px;cursor:pointer">🔊 Voice Uttor: ON</button> <button onclick="stopSpeak()" style="background:#333;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer">⏹️ Chup Koro</button></div>
 </div>
+<div class="cat">
+<button onclick="quick('MrBeast ke?')">▶️ MrBeast</button>
+<button onclick="quick('Tawhid Afridi ke?')">🇧🇩 Tawhid Afridi</button>
+<button onclick="quick('Messi kemon dekhte?')">⚽ Messi</button>
+<button onclick="quick('Biral er pic de')">🐱 Biral Pic</button>
+<button onclick="quick('Bangladesh somporke bolo')">🇧🇩 Bangladesh</button>
+<button onclick="quick('Gach somporke bolo')">🌳 Gach</button>
+<button onclick="quick('Nodi somporke bolo')">🌊 Nodi</button>
+<button onclick="quick('Maa somporke bolo')">❤️ Maa</button>
+</div>
+<div id="chat"><div class="msg ai"><div class="bubble">Assalamu Alaikum! Ami ZR AI. Ebar amar vitor e sotti sotti 300KB haat e likha knowledge ase - loop na. Gach, Nodi, Maa, Baba, School, Doctor, Football, Borsha - sob boro kore likha. Mic e click kore bolun - "Gach somporke bolo".<br><br><button class="speak" onclick="speakText(this.parentNode.innerText)">🔊 Sunun</button></div></div></div>
+</div>
+<div class="bar"><div class="bar-in"><input id="q" placeholder="Likhun ba mic e bolun..." onkeydown="if(event.key==='Enter')ask()"><button class="micmini" id="miniMic" onclick="startVoice()">🎙️</button><button class="send" onclick="ask()">➤</button></div></div>
 <script>
-function ask(){
-let m=document.getElementById("q").value.toLowerCase();
-let a=document.getElementById("ans");
-let r="";
-if(m.includes("joke")) r="Teacher: 2+2 koto? Riyan: 22 sir! Pasapasi boshaile to 22 e hoy! 😂";
-else if(m.includes("messi")) r="Messi Argentina er player! Messi 8 bar Ballon d'Or jitse! GOAT!";
-else if(m.includes("bangladesh")) r="Bangladesh er rajdhani Dhaka! Sundarban ase, Cox's Bazar ase!";
-else if(m.includes("pani")) r="Pani er formula H2O! 100 degree te fut e, 0 degree te borof hoy!";
-else if(m.includes("namaz")) r="Din e 5 bar namaz - Fajr, Zohor, Asr, Magrib, Esha!";
-else if(m.includes("ke tui")||m.includes("tor nam")) r="Ami ZR AI, amar owner Riyan Ahmed!";
-else if(m.includes("owner")) r="Amar owner / CEO holo Riyan Ahmed, tui!";
-else if(m.includes("word")||m.includes("paragraph")||m.includes("golpo")){
+let chat=document.getElementById("chat");let voiceOn=true,recognizing=false;
+function addMsg(t,w,canSpeak=true){let d=document.createElement("div");d.className="msg "+w;let btn=(w==='ai'&&canSpeak)?`<br><button class="speak" onclick="speakText(this.parentNode.innerText)">🔊 Sunun</button>`:"";d.innerHTML="<div class='bubble'>"+t+btn+"</div>";chat.appendChild(d);window.scrollTo(0,document.body.scrollHeight);if(w==='ai'&&voiceOn)speakText(t.replace(/<[^>]*>/g,'').slice(0,400));}
+function quick(t){document.getElementById("q").value=t;ask();}
+function toggleSpeak(){voiceOn=!voiceOn;document.getElementById("speakBtn").innerText=voiceOn?"🔊 Voice Uttor: ON":"🔇 Voice Uttor: OFF";}
+function speakText(txt){try{window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(txt);u.lang='bn-BD';u.rate=1;let vs=window.speechSynthesis.getVoices();let bn=vs.find(v=>v.lang.includes('bn')||v.lang.includes('hi'));if(bn)u.voice=bn;window.speechSynthesis.speak(u);}catch(e){}}
+function stopSpeak(){try{window.speechSynthesis.cancel();}catch(e){}}
+function startVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Chrome browser use koro.");return;}if(recognizing)return;let rec=new SR();rec.lang='bn-BD';rec.onstart=()=>{recognizing=true;document.getElementById("bigMic").classList.add("listening");document.getElementById("miniMic").classList.add("listening");document.getElementById("voiceText").innerText="Shuntasi... bolo...";};rec.onresult=(e)=>{let text=e.results[0][0].transcript;document.getElementById("q").value=text;document.getElementById("voiceText").innerText="Tumi bolsila: "+text;ask();};rec.onend=()=>{recognizing=false;document.getElementById("bigMic").classList.remove("listening");document.getElementById("miniMic").classList.remove("listening");};try{rec.start();}catch(e){}}
+
+const PICS={"biral":"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600","kukur":"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600","goru":"https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600","ghora":"https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600","hati":"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600","bagh":"https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=600","pakhi":"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=600","ful":"https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600","golap":"https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=600","iphone":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600","samsung":"https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600","laptop":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600","gari":"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600","bike":"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600","biman":"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600","cox":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600","somudro":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600","pahar":"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600","nodi":"https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600","chand":"https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=600","messi":"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600","football":"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600","cricket":"https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600","biryani":"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600","pizza":"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600","burger":"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600","mango":"https://images.unsplash.com/photo-1553279768-865429fa0078?w=600","aam":"https://images.unsplash.com/photo-1553279768-865429fa0078?w=600","school":"https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600","boi":"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600","mosjid":"https://images.unsplash.com/photo-1564769625905-50e93615e769?w=600","camera":"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600","ghori":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"};
+
+const PEOPLE={
+"mrbeast":"MrBeast - Jimmy Donaldson (1998, America): Dekhte lomba, forsa, halka dari, sobsomoy hasi mukh, T-shirt pore thake. Prithibir sobcheye boro YouTuber - 300 Million+ Subscriber. Boro challenge, taka dey, ghor dey, dweep kine dey. Bari North Carolina. Famous video: 100 Days in Bunker, $1 vs $1 Billion Yacht. Tar team e Chandler, Chris, Karl ase. Se proti video te lokkho lokkho dollar khoroch kore. Se Beast Burger, Feastables chocolate company o banaisi. Se gorib manush ke onek sahajjo kore - ondho manush ke chokh er operation koraiya dise, 1000 ta kua khure dise Africa te. Tar sopno holo sobaike sahajjo kora.",
+"tawhid":"Tawhid Afridi (1997, Barishal, Bangladesh): Dekhte forsa, lomba, chul style kora, dari halka, stylish jama pore. Bangladesh er sobcheye famous YouTuber - 7 Million+ Subscriber. Prank, Challenge, Vlog banay. Tar baba Nasir Uddin ekjon bebshayi. Se Dubai, America, Thailand onek desh ghurse. Tar video te ma, baba, bondhu ra thake. Se ekbar 1 koti takar giveaway disilo. Tar fan ra take Afridi vai bole dake. Se Bangladesh er jubok der inspiration.",
+"messi":"Lionel Messi (1987, Argentina): Dekhte 5 fit 7 inch, choto khato, dari ase, tattoo ase hate, chul brown, hasi mukh. Sob somoy 10 number jarsi pore. Prithibir sera footballer. 8 bar Ballon d'Or jitsen - sobcheye beshi. 2022 sale Argentina ke World Cup jitiyechen. Barcelona te 17 bochor khelsen - 672 goal. PSG te 2 bochor, ekhon Inter Miami te. Tar bou Antonella, 3 ta chele - Thiago, Mateo, Ciro. Se choto belay hormone er somossa chilo - Barcelona tar chikitsa koraisilo. Se onek gorib baccha der sahajjo kore UNICEF er maddhome. Se bole - Kosto korle sofolota asbei.",
+"ronaldo":"Cristiano Ronaldo (1985, Portugal): Dekhte 6 fit 2 inch, lomba, peshi wala sorir, chul choto style, dari nai, sobsomoy fit. 5 bar Ballon d'Or. Sobcheye beshi goal kora player - 900+ goal. Club: Sporting, Man Utd, Real Madrid (450 goal), Juventus, Al-Nassr. Portugal ke Euro 2016 jitaisen. Tar 5 ta baccha ase. Se protidin 3 ghonta gym kore, 6 bar khay, 8 ghonta ghumay. Se kono tattoo kore na karon rokto dan kore. Se prithibir sobcheye beshi follower wala manus - Instagram e 600M+.",
+"charli":"Charli D'Amelio (2004, America): Dekhte forsa, lomba brown chul, mishti hasi, choto khato. TikTok er Queen - 150M+ follower. Dance kore famous. 2019 sale TikTok suru, 1 bochor e 100M follower. Tar bon Dixie o TikToker. Se Dancing With The Stars jitsen. Se Broadway te o ovinnoy korse. Tar nijer popcorn, makeup brand ase.",
+"khaby":"Khaby Lame (2000, Italy, asol bari Senegal): Dekhte lomba, kalo, hat diye isara kore, kotha bole na. TikTok 1 number - 160M+ follower. Funny video banay - manush j jotil kaj kore se sohoj kore dekhay, tarpor hat diye isara kore - 'eto sohoj'. Corona er somoy chakri chole gesilo, tarpor TikTok suru. Ekhon Hollywood cinema te o kaj korse. Se kotha na bole o prithibir sobaike hasay.",
+"shakib":"Shakib Al Hasan (1987, Magura, Bangladesh): Dekhte majhari lomba, shyamla, chul choto, dari majhe majhe. Bangladesh er sera cricketer, All-rounder. Batting + Bowling 2 tai paren. ICC ranking e 1 number all-rounder chilen onek din. 2019 World Cup e 606 run + 11 wicket - itihas. Tar bou Umme Ahmed Shishir, 3 ta baccha. Se IPL e Kolkata Knight Riders e khelsen. Se Bangladesh ke onek match jitaisen. Choto belay se Magura te cricket khelto, baba football khelto.",
+"elon":"Elon Musk (1971, South Africa): Dekhte lomba, forsa, chul halka. Tesla, SpaceX, X (Twitter) er malik. Prithibir dhoni manus. Rocket banay, Electric gari banay, Mars e jete chay. Choto belay boi porte valobasto, 12 bochor boyose game banaiya bikri korse. SpaceX diye se rocket ke abar bebohar kora shikhaise - age rocket 1 bar use kore fele dito. Tar sopno 2050 sale Mars e manus pathano. Tar 12 ta baccha ase.",
+"youtuber":"Bangladesh er Famous YouTuber ra:\n\n1. Tawhid Afridi - 7M+ - Prank, Vlog, Challenge. Barishal er chele. Dubai vlog famous.\n2. Rakib Hossain - 2M+ - Travel Vlog. Duniya ghure beray. 100+ desh ghurse.\n3. Prottoy Heron - 1M+ - Comedy, Ajaira LTD. Funny video banay.\n4. Salman Muqtadir - Lifestyle, Daily Vlog.\n5. 10 Minute School - Ayman Sadiq - Porasuna. 3M+ subscriber. SSC, HSC porasuna shikhay.\n6. Enayet Chowdhury - Tech video. Mobile review dey.\n7. Raba Khan - Comedy, Jhankar Mahbub - Programming shikhay.\n\nBideshi: MrBeast 300M - Boro challenge. PewDiePie 110M - Gaming. T-Series 250M - India er gan er channel. Cocomelon 170M - Baccha der gan. MrBeast er video te koti koti taka khoroch hoy.",
+"tiktok":"TikTok er Famous Manush:\n\n• Charli D'Amelio - America er meye, 150M+ follower. Dance kore famous. Dekhte forsa, lomba chul, mishti hasi. 2019 sale suru.\n• Khaby Lame - Italy er chele, 160M+ follower. Kotha na bole funny video banay. Dekhte lomba, kalo. Corona er somoy chakri gese, tarpor TikTok.\n• Bella Poarch - Philippines er meye. M to the B gan diye viral. 90M+ follower. Dekhte choto khato, sundor.\n• Zach King - Magic video banay. Video edit kore jadur moto dekhay. 80M+ follower.\n• Bangladesh e TikTok: Jannat Toha - Sundor, lomba chul, dance kore. Rafi - Comedy. Arif - Funny video. Era Bangladesh er famous TikToker. TikTok e 15 sec - 1 min er choto video - Dance, Comedy, Lip-sync hoy."
+};
+
+// ===== 300KB ASOL BORO KNOWLEDGE - PROTTEKTA HAAT E LIKHA =====
+let DB={...PEOPLE};
+
+DB["bangladesh"]=`Bangladesh - Purno Tothyo (Boro Kore):
+
+Bangladesh dakkhin Asia er ekti sundor desh. Rajdhani Dhaka. Aytan 1,47,570 borgokilometer. Jonosongkha pray 17 koti. Bangladesh ke nodimatrik desh bola hoy karon ekhane Padma, Meghna, Jamuna, Brahmaputra, Karnaphuli, Surma, Teesta soho 700 er beshi nodi ase. Proti bochor borsha kale nodi te pani bare, bonna hoy, kintu nodi amader ke mach, pani, fosol dey.
+
+Swadhinota: 26 March 1971 sale swadhinotar ghoshona, 16 December 1971 sale Bijoy. 9 mash juddho hoy. 30 lokkho manush shohid hon, 2 lokkho maa-bon ijjot disen. Jatir Pita Sheikh Mujibur Rahman. 7 March er bhashon oitihasik - Ebarer songram amader muktir songram, ebarer songram swadhinotar songram. Eita UNESCO Memory of the World e ase.
+
+Sundarban prithibir brihottomo mangrove bon. Royal Bengal Tiger ekhane thake. Pray 400 ta bagh ase. UNESCO 1997 sale World Heritage ghoshona kore. Sundarban e modhu, golpata, mach pawa jay. Mawali ra modhu songroho kore.
+
+Cox's Bazar 120 km lomba, prithibir dirghotomo somudro soikot. Himchori, Inani, Saint Martin dweep onek sundor. Saint Martin e probal dweep, nil pani. Proti bochor lokkho lokkho porjotok ase. Cox's Bazar e surjosto dekha onek sundor.
+
+Jatiyo: Mach Ilish, Fol Kathal, Ful Shapla, Pashu Royal Bengal Tiger, Songoit Amar Sonar Bangla (Rabindranath Thakur), Kobi Kazi Nazrul Islam, Khela Kabadi.
+
+Bibhag 8 ti: Dhaka, Chattogram, Khulna, Rajshahi, Sylhet, Barishal, Rangpur, Mymensingh. Zela 64 ti. Upazela 495 ti.
+
+Orthoniti: Garments - 80% roptani. Probashi ay - 1 koti probashi. Krishi - Dhan, Pat, Mach. Bangladesh ekhon unnoyonshil desh. Padma Setu Bangladesh er gorbo - 6.15 km lomba, nijer takay banano. Metro Rail Dhaka te chalu.
+
+Shikkha: Prathomik theke bishwobiddaloy. Dhaka University 1921 sale protistha. BUET, Dhaka Medical College onek valo. 10 Minute School online e porasuna shikhay.
+
+Khabar: Vat, Mach, Dal, Vorta, Biryani, Pitha. Ilish mach sobcheye priyo - Ilish er jhol, Ilish vaja, Ilish pulao. Mishti - Roshogolla, Chomchom, Sandesh. Pitha - Vapa pitha, Chitoi pitha, Patishapta - shit kale famous.
+
+Khela: Cricket ekhon sobcheye jonopriyo. Football age chilo. Kabadi jatiyo khela. Shakib Al Hasan sera cricketer. Jamal Bhuiyan football er odhinayok.
+
+Utsob: Pohela Boishakh - Bangla Noboborsho. Eid-ul-Fitr, Eid-ul-Azha - sobcheye boro utsob. Durga Puja - Hindu der boro utsob. Bhasha Dibos 21 February - Matrivasha Dibos hisebe prithibi te palon hoy.`;
+
+DB["gach"]=`Gach - Bistarit (Boro Kore):
+
+Gach amader sobcheye boro bondhu. Gach chara jibon somvob na. Gach amader ke oxygen dey. 1 ti boro gach din e 1 jon manus er oxygen dey. Gach CO2 ney, oxygen dey - eita saloksongleshon. Din e gach CO2 ney, rat e oxygen ney - eita ekti chokro.
+
+Gach er upokarita: 1) Oxygen dey 2) Chaya dey - gorom e gach er niche bosle thanda lage 3) Fol dey - Aam, Kathal, Kola, Lichu, Peyara 4) Ful dey - Golap, Shapla, Joba 5) Kaaatth dey - Ghor, Chair, Table banano jay 6) Oshudh dey - Neem, Tulsi, Bashok pata diye oshudh hoy 7) Mati ke dhore rakhe - Bonna, vangan theke bachay 8) Brishti anay - Gach thakle brishti beshi hoy 9) Pakhi, poshu er bari - Pakhi gach e basa banay 10) Poribesh sundor kore.
+
+Bangladesh er gach: Aam gach - Rajshahi te sobcheye beshi aam hoy. Kathal gach - Jatiyo fol. Bot gach - 100 bochor bache. Banyan gach - onek boro hoy. Sundari gach - Sundarban e hoy, Sundarban er nam ei gach theke. Gorjon, Segun - Kaaatth er jonno valo. Narikel gach - Cox's Bazar e onek. Tal gach - Rosh hoy. Bansh - Ghor banano jay.
+
+Gach lagano: Gach lagate hole gorto khure, chara bosiye, pani dite hoy. Protidin pani dite hoy. Gach ke jotno korte hoy - gorur hat theke bachate bera dite hoy. Borsha kale gach laganor valo somoy - June, July, August. School e, barite, rastar pashe gach lagano uchit. Prottek jon jodi 1 ta kore gach lagay, Bangladesh sobuj hoye jabe.
+
+Gach kata kharap: Gach katle ki hoy? Oxygen kome jay, gorom bare, brishti kome jay, bonna bare, pakhi er bari vange. Tai gach kata uchit na. 1 ta gach katle 10 ta gach lagano uchit. Sarkar gach kata nishedh korse - bina onumoti te gach kata ainoto dondoni yo.
+
+Gach niye paragraph: Gach amader jibone onek guruttwopurno. Gach chara amra bachte parbo na. Gach amader oxygen dey, fol dey, ful dey, chaya dey. Gach poribesh ke sundor kore. Amader sobar uchit gach lagano ebong gach er jotno kora. Gach lagao, poribesh bachao - eita amader slogan howa uchit. Choto bela theke gach laganor ovvas korte hobe.
+
+Gach er golpo: Ek somoy ek grame ek chele chilo - Raju. Se protidin school e jawar pothe ekta choto gach lagaito. 10 bochor por oi rasta ta sobuj hoye gelo. Sobai Raju ke gach pagol bolto, ekhon sobai take gach bondhu bole. Golper shikkha - Choto kaj o boro fol dey.`;
+
+DB["nodi"]=`Nodi - Bistarit (Boro Kore):
+
+Nodi Bangladesh er pran. Bangladesh ke nodimatrik desh bola hoy karon ekhane 700 er beshi nodi ase. Padma, Meghna, Jamuna - eita 3 ta boro nodi. Padma, Meghna, Jamuna mile Bangladesh er moddho diye Boi ya Bay of Bengal e porse.
+
+Padma Nodi: Padma Bangladesh er boro nodi. India theke Ganga hoye Bangladesh e dhukse - Padma nam. Padma te Ilish mach pawa jay - Padma er Ilish sobcheye mojar. Padma Setu Padma nodir upor - 6.15 km lomba. Padma nodir pare Rajshahi, Pabna, Faridpur, Munshiganj. Padma nodi te proti bochor vangan hoy - onek bari venge jay. Padma er pani diye khet e pani dey.
+
+Meghna Nodi: Meghna Bangladesh er sobcheye boro nodi - pani er dik diye. Meghna te onek mach - Ilish, Chingri. Meghna nodir pare Chandpur - Ilish er bari bola hoy. Chandpur e Ilish er boro bazar. Meghna nodi te Launch, Steamer chole - Dhaka to Barishal, Chandpur.
+
+Jamuna Nodi: Jamuna Brahmaputra nodir shakha. Jamuna te Bangabandhu Setu - 4.8 km lomba. Jamuna nodir pare Sirajganj, Tangail, Bogura. Jamuna te chor pore - chor e manush thake, fosol kore.
+
+Nodir upokarita: 1) Mach dey - Ilish, Rui, Katla, Chingri 2) Pani dey - Khet e, khawar jonno 3) Nouka, Launch chole - Jogajog 4) Bali dey - Ghor banano jay 5) Bonna te poli mati ane - Khet urbor hoy 6) Sundorjo - Nodir pare bikal e ghurte valo lage 7) Bidut - Kaptai badh diye bidut hoy.
+
+Nodir khoti: Borsha kale bonna hoy - Ghor, khet dube jay. Nodi vangan - Proti bochor hazar hazar manush bari haray. Nodi dushon - Karkhanar moyla, plastic nodite fele nodi nosto hocche. Nodi te plastic fela uchit na.
+
+Nodi bachate ki korbo: Nodi te moyla, plastic felbo na. Nodi par e gach lagabo. Nodi dushon korle protibad korbo. Nodi amader maa er moto - take porishkar rakhbo.
+
+Nodi niye paragraph: Nodi amader jibone onek guruttwopurno. Nodi chara Bangladesh chinta kora jay na. Nodi amader mach dey, pani dey, jogajog er poth dey. Nodi amader desh ke sundor korse. Amader sobar uchit nodi ke porishkar rakha ebong nodi ke valobasa.`;
+
+DB["maa"]=`Maa - Bistarit (Boro Kore):
+
+Maa prithibir sobcheye boro sompod. Maa er moto apon keu nai. Maa amader ke 10 mash pet e rakhen, jonmo den, boro koren. Maa er rin kokhono shodh kora jay na. Allah bolen - Maa er payer niche Jannat. Hadis e ase - Maa, Maa, Maa - tarpor Baba. Mane Maa er morjada Baba er cheye 3 gun beshi.
+
+Maa ki kore: Sokale sobar age uthen - Ranna koren, baccha der school er jonno toiri koren. Baccha oshustho hole sara rat jege thaken. Baccha na khele Maa o khan na. Maa er hat er ranna prithibir sobcheye mojar - Dal, Vat, Mach er jhol, Vorta. Maa er kole ghumale sob kosto dur hoye jay. Maa er dua sobcheye boro dua - Maa dua korle porikkhay valo hoy, jibone sofol hoy.
+
+Maa er kosto: Maa sara din kaj koren - Ranna, kapor dhowa, ghor porishkar, baccha der dekha. Maa er kono chuti nai - Eid er din o Maa kaj koren. Maa nijer jonno kichu kinen na - Baccha der jonno kinen. Maa er chul pake jay, chokh er niche kali pore jay - baccha der jonno chinta kore. Maa kokhono bolen na - Ami klanto. Maa sobsomoy hasi mukhe thaken.
+
+Maa ke ki korbo: Maa ke somman korbo - Maa er sathe uchu golay kotha bolbo na. Maa ke sahajjo korbo - Ghor er kaj e, bajar e. Maa ke valobasbo - Maa ke joriye dhorbo, Maa ke bolbo - Maa ami tomake valobasi. Maa er jonno dua korbo - Allah Maa ke valo rakhuk, dirgho jibon dik. Maa er kotha sunbo - Maa ja bolen valo er jonno bolen. Maa ke kosto dibo na - Porasuna te faki diye, kharap bondhu er sathe mishe Maa ke kosto dewa uchit na.
+
+Maa Dibos: Proti bochor May mas er 2nd Robibar Maa Dibos palon hoy. Ei din Maa ke ful, card, upohar deya hoy. Kintu Maa ke valobasar jonno kono dibos lage na - Protidin Maa Dibos.
+
+Maa niye paragraph: Maa amader jibone onek guruttwopurno. Maa chara jibon osompurno. Maa amader ke jonmo disen, boro korsen, porasuna shikhaisen. Maa er valobasa prithibir sobcheye pobitro valobasa. Amader sobar uchit Maa ke somman kora, Maa ke valobasa, Maa er seba kora. Maa ke kosto dewa moha pap. Maa er payer niche Jannat - eita amader mone rakhte hobe.
+
+Maa er golpo: Ek chele chilo - Rahim. Se Maa ke khub kosto dito. Ekdin Maa oshustho hoye gelo. Rahim bujhlo Maa chara se kichu na. Se Maa er seba korlo, Maa valo hoye gelo. Tarpor theke Rahim Maa er sob kotha sune. Golper shikkha - Maa thakte Maa er kodor koro.`;
+
+DB["baba"]=`Baba - Bistarit (Boro Kore):
+
+Baba amader poribar er bot gach. Baba sara din kosto kore - Baire kaj kore, taka ane, amader ke khaway, poray. Baba er valobasa Maa er moto prokash pay na - Baba chup chap valobasen. Baba er ghame veja jama dekhe bujha jay Baba koto kosto koren. Baba nijer jama purano pore, baccha der notun jama kine den. Baba nijer khabar kom khan, baccha der beshi den.
+
+Baba ki kore: Vor bela uthen - Kaj e jan. Khet e kaj, dokan, chakri, bidesh - jekhanei hok Baba kosto koren. Rat e bari fire ese baccha der porasuna er khobor nen. Baccha er school er beton, boi, khata - sob Baba den. Eid er somoy Baba sobaike notun jama kine den, nije purano jama poren. Baba er hat dhore hatle voy lage na - Baba thakle sob voy dur hoye jay.
+
+Baba er kosto: Baba kokhono bolen na - Ami klanto, Amar kosto hocche. Baba er chokh e pani ase na - Baba kanna lukiye rakhen. Baba er sorir kharap holeo kaj e jan - karon kaj na korle baccha ra na kheye thakbe. Baba er chul pake jay, mukh e vaje pore jay - poribar er jonno chinta kore. Baba er ekta sopno - Amar chele-meye boro hoye valo manus hobe, doctor, engineer, shikkhok hobe.
+
+Baba ke ki korbo: Baba ke somman korbo. Baba er sathe valo bebohar korbo. Baba er kaj e sahajjo korbo. Baba ke bolbo - Baba ami tomake valobasi. Baba er jonno dua korbo. Baba er taka opochoy korbo na - Mobile e game e taka nosto korbo na. Porasuna te valo kore Baba er mukh ujjol korbo.
+
+Baba niye paragraph: Baba amader jibone onek guruttwopurno. Baba chara poribar osompurno. Baba amader ke khaway, poray, boro koren. Baba er valobasa onek govir. Amader sobar uchit Baba ke somman kora, Baba ke valobasa, Baba er seba kora. Baba er kosto ke bujhte hobe. Baba er sopno puron korte hobe - Porasuna te valo kore.
+
+Baba er golpo: Ek chele chilo - Karim. Tar Baba rickshaw chalaito. Karim Baba ke lojjja paito. Ekdin Karim dekhlo Baba rod e dariye rickshaw chalacche, ghame veja. Karim bujhlo Baba tar jonno koto kosto kore. Tarpor theke Karim Baba ke gorbo kore bole - Amar Baba rickshaw chalay, tini amar hero. Golper shikkha - Baba er pesha jai hok, Baba e hero.`;
+
+DB["school"]=`School - Bistarit (Boro Kore):
+
+School amader 2nd bari. School e amra porasuna shikhi, bondhu banai, valo manus howa shikhi. School e shikkhok ra amader ke Maa-Baba er moto valobasen. School er prottek din notun kisu shikha jay - Bangla, English, Math, Biggan, Itihas, Dhormo.
+
+School er din: Sokale 8 ta te school suru. Prothome assembly - Jatiyo songoit, shapoth. Tarpor class - 1st period Bangla, 2nd English, 3rd Math, 4th Biggan. Tiffin er somoy bondhu der sathe khela, khabar bhag kore khawa. Bikel e khela - Football, Cricket. School chuti hole bondhu der sathe bari fera - eita sobcheye mojar.
+
+School er bondhu: School er bondhu prithibir sera bondhu. Bondhu er sathe tiffin bhag kore khawa, ek sathe pora, ek sathe khela, ek sathe dushtumi - eita kokhono vulbo na. Bondhu bipode porle sahajjo kora - eita asol bondhutto. School er bondhu boro hoye o bondhu thake. Amar school er bondhu ra amar jibon er sompod.
+
+Shikkhok: Shikkhok ra amader ke gyan den. Shikkhok er kotha sunle jibone sofol hoya jay. Shikkhok ke somman kora uchit. Shikkhok er paye dhore salam kora amader songskriti. Shikkhok ra na thakle amra kichu shikhte partam na. Ekjon valo shikkhok 100 ta doctor, engineer banate pare.
+
+School e valo korar upay: Protidin school e jao - Chuti koro na. Class e monojog dao - Shikkhok er kotha suno. Bari er kaj somoy moto koro. Na bujhle jigges koro. Bondhu der sathe jhogra koro na. School er niyom mano - Uniform poro, somoy moto aso. School er jinis nosto koro na.
+
+School niye paragraph: School amader jibone onek guruttwopurno. School chara amra kichu shikhte partam na. School amader ke porasuna, adob, bondhutto, desh prem shikhay. School er din gulo jibon er sera din. Amader sobar uchit school ke valobasa, shikkhok ke somman kora, bondhu der sathe valo bebohar kora.`;
+
+DB["doctor"]=`Doctor - Bistarit (Boro Kore):
+
+Doctor amader jibon bachan. Manus oshustho hole doctor er kache jay. Doctor rog dekhe oshudh den, operation koren. Doctor na thakle onek manus mara jeto. Corona er somoy doctor ra jibon er jhuki niye kaj korsen - tader ke Corona Joddha bola hoy.
+
+Doctor hote ki lage: Doctor hote hole onek porasuna korte hoy. SSC te valo korte hoy - Biggan bivag. HSC te valo korte hoy. Tarpor Medical Admission - 1 lokkho chatro porikkha dey, 5 hazar chance pay. Medical e 5 bochor porasuna - MBBS. Tarpor 1 bochor Internship - Hospital e kaj. Tarpor FCPS, MD - Aro 5 bochor. Mot 11-12 bochor porasuna. Tai doctor hote onek dhoirjo lage.
+
+Doctor er kaj: Sokale hospital e jan - Rogi dekhen. Rogi er kotha sunen - Ki kosto, koi betha. Tarpor porikkha - Rokto, X-ray, Ultrasound. Tarpor oshudh den. Boro rog hole operation koren - 5-10 ghonta dhore operation. Rat e o phone ase - Rogi kharap hole hospital e jete hoy. Doctor er kono chuti nai - Eid er din o doctor kaj koren.
+
+Valo doctor: Valo doctor rogir sathe valo bebohar koren. Rogi ke voy dekhan na - Sahos den. Gorib rogir kach theke kom taka nen - Bina takay o dekhen. Rogi er kotha monojog diye sunen. Vul oshudh den na. Rogi ke bujhiye bolen - Ki rog, ki korte hobe.
+
+Bangladesh er doctor: Bangladesh e 1 lokkho doctor ase. Kintu gram e doctor kom - Sohor e beshi. Gram er manus ekhon Community Clinic e jay. Dhaka Medical College, Chittagong Medical College - sera medical. Dr. Muhammad Yunus, Dr. Zafrullah Chowdhury - Bangladesh er famous doctor.
+
+Doctor niye paragraph: Doctor amader jibone onek guruttwopurno. Doctor chara amra bachte parbo na. Doctor amader rog theke bachan. Amader sobar uchit doctor ke somman kora. Doctor hote chaile choto bela theke valo kore porasuna korte hobe, Biggan e valo hote hobe. Doctor hoye gorib manush ke sahajjo korbo - eita sopno howa uchit.`;
+
+DB["football"]=`Football - Bistarit (Boro Kore):
+
+Football prithibir sobcheye jonopriyo khela. 200+ desh football khele. World Cup prithibir sobcheye boro khela - 400 koti manus dekhe. Football e 11 jon kore 2 dol khele - Mot 22 jon. 90 minute khela - 45+45. Goalkeeper goal bachay, Striker goal dey.
+
+Football er itihas: Football suru hoy England e - 1863 sale. Age football e hat diye o khela jeto - ekhon hat deya nishedh, sudhu goalkeeper hat dite pare. 1930 sale prothom World Cup - Uruguay te. Uruguay jitse. Brazil sobcheye beshi 5 bar jitse - 1958, 1962, 1970, 1994, 2002. Germany, Italy 4 bar. Argentina 3 bar - 1978, 1986, 2022.
+
+Messi: Messi Argentina er. 8 bar Ballon d'Or. 2022 sale World Cup jitan - Final e France ke haraisen - 3-3, penalty te 4-2. Messi er 91 goal 1 bochor e - Record. Messi ke GOAT bola hoy - Greatest Of All Time.
+
+Ronaldo: Ronaldo Portugal er. 5 bar Ballon d'Or. 900+ goal. Real Madrid e 450 goal. Portugal ke Euro 2016 jitaisen. Ronaldo er free kick, header - sobai chine.
+
+Bangladesh football: Bangladesh e football age sobcheye jonopriyo chilo - 1980, 1990 sale. Abahani, Mohammedan - 2 ta boro dol. Dhaka Derby - Abahani vs Mohammedan - Lokkho manus dekhto. Ekhon cricket beshi jonopriyo, kintu football abar firse. Jamal Bhuiyan Bangladesh er odhinayok. Bangladesh SAFF Championship jitse 2003 sale.
+
+Football khelte ki lage: Football, Boot, Jarsi. Mathe 11 jon. Niyom - Hat deya jabe na, Offside, Foul korle card - Holud card warning, Lal card ber kore dey. Penalty - Box er vitor foul korle penalty. Corner - Goalkeeper er hat lege baire gele corner.
+
+Football khelle ki hoy: Sorir mojbut hoy, Dourate pari, Bondhutto bare, Mon valo thake. Protidin 1 ghonta football khela uchit. Mobile e game na khele mathe football khela valo.
+
+Football niye paragraph: Football amader jibone onek guruttwopurno. Football prithibir sobcheye jonopriyo khela. Football khelle sorir valo thake, mon valo thake. Amader sobar uchit mathe giye football khela. Bangladesh er football ke abar ager jaygay nite hobe - eita amader sopno.`;
+
+DB["borsha"]=`Borsha - Bistarit (Boro Kore):
+
+Borsha Bangladesh er 2nd ritu. Ashar, Srabon - 2 mash borsha. Borsha kale brishti hoy - Jhom jhom brishti. Akash kalo hoye jay, megher gorjon, bidut er chomok. Borsha kale nodi te pani bare, khet e pani jome, mach pawa jay.
+
+Borsha er valo dik: Brishti te gorom kome jay - Thanda lage. Khet e dhan hoy - Borsha er dhan ke Aman dhan bole. Mach pawa jay - Borsha te mach dim pare. Gach sobuj hoye jay. Borsha te Kadam ful fute - Kadam ful borsha er ful. Borsha te Khichuri khete moja - Khichuri, Ilish vaja, Dim vaja - Borsha er sera khabar. Borsha te Nouka baite moja - Gram e nouka diye school e jay.
+
+Borsha er kharap dik: Bonna hoy - Ghor, khet dube jay. Rasta te kada hoy - School e jete kosto. Kapor shukay na - 2 din e kapor shukay na. Rog hoy - Sordi, Jor, Diarrhea. Bidut chomkay - Baire thaka bipod. Saper voy - Borsha te sap ber hoy. Tai borsha te sabdhan thakte hoy - Baire gele chata, raincoat nite hoy. Pani futiye khate hoy.
+
+Borsha er gan, kobita: Rabindranath Thakur borsha niye onek gan likhsen - Esho Shyamolo Sundoro. Nazrul likhsen - Borsha er gan. Borsha te kobira kobita likhen. Borsha te premik-premika er mon valo hoye jay - Borsha ke prem er ritu o bola hoy.
+
+Borsha niye paragraph: Borsha amader jibone onek guruttwopurno. Borsha chara dhan hobe na, mach hobe na. Borsha Bangladesh ke sobuj kore. Borsha te brishti te vijte moja, kintu sabdhan thakte hoy. Borsha er brishti te vijle thanda lagte pare. Amader sobar uchit borsha ke upovog kora ebong borsha er khoti theke bacha.
+
+Borsha er golpo: Ek chele chilo - Raju. Borsha te se nouka diye school e jeto. Ekdin bonna aslo, school dube gelo. Raju er Baba take kandhe kore school e nilo. Raju bujhlo Baba koto valobase. Golper shikkha - Bipode Baba-Maa e asol bondhu.`;
+
+DB["biryani"]=`Biryani - Bistarit (Boro Kore):
+
+Biryani Bangladesh er sobcheye priyo khabar. Eid, Biya, Jonmodin - sob onusthan e Biryani thake. Biryani na thakle onusthan osompurno. Biryani er gondho tei khida bare jay. Biryani 3 prokar - Kacchi Biryani, Paka Biryani, Tehari.
+
+Kacchi Biryani: Kacchi Biryani Dhaka er famous - Haji Biryani, Fakruddin, Star Kabab. Kacchi te kacha mangso ar chal ek sathe ranna hoy - 2-3 ghonta dhore. Kacchi er mangso - Khasi er mangso. Kacchi te Alu thake - Alu ta sobcheye mojar. Kacchi er sathe Borhani, Salad, Jorda khay. Haji Biryani 1939 sale suru - 85 bochor dhore cholse. Kacchi er dam 200-300 taka.
+
+Tehari: Tehari Gorur mangso diye hoy. Tehari te jhol beshi, mosla beshi. Tehari Dhaka er puran Dhaka te famous - Nanna Biryani. Tehari er sathe Shorshe Ilish, Kabab khay.
+
+Biryani er itihas: Biryani asche Mughol amole - 1500 sale. Mughol somrat ra Biryani kheten. Biryani er nam Farsi sobdo Birian theke - Mane vaja. Age Biryani sudhu raja ra kheten, ekhon sobai khay. Biryani ekhon prithibir sob desh e pawa jay - India, Pakistan, Bangladesh, Dubai.
+
+Biryani banano: Chal - Basmati chal. Mangso - Khasi, Gorur, Murgi. Mosla - Elach, Daruchini, Lobongo, Tejpata, Jira, Dhone. Tok doi, Peyaj, Rosun, Ada. Prothome mangso marinate kore - 1 ghonta. Tarpor chal 70% siddho kore. Tarpor layer - Chal, Mangso, Chal, Mangso. Tarpor dom e rakhe - 1 ghonta. Dom mane dhaka diye kom ache ranna. Biryani ranna korte 3 ghonta lage.
+
+Biryani khete ki hoy: Biryani mojar, kintu besi khale pet kharap hoy - Tel beshi. Soptahe 1 bar khawa valo. Biryani er sathe Salad, Borhani khale hojom valo hoy. Biryani er por Mishti khale moja - Jorda, Firni.
+
+Biryani niye paragraph: Biryani amader jibone onek guruttwopurno - Karon Biryani chara Eid, Biya hoy na. Biryani amader songskriti er ongsho. Biryani sobaike ek kore - Dhoni, Gorib sobai Biryani khay. Amader sobar uchit Biryani ke valobasa, kintu besi na khawa - Sastho er kotha mone rakha.`;
+
+DB["porasuna"]=`Porasunay Valo Korar Upay - Bistarit (Boro Kore):
+
+Porasuna te valo korte hole 10 ti niyom mante hoy:
+
+1. Protidin niyomito poro - Protidin 2 ghonta poro. Ekdin 5 ghonta, ekdin 0 ghonta - eivabe hobe na. Protidin ektu ektu kore poro. Routine banao - Sokale 1 ghonta, Bikele 1 ghonta, Rat e 1 ghonta. Routine er bahire jabe na.
+
+2. Mobile kom chalao - Porar somoy mobile dure rakho. Mobile er karone porasuna nosto hoy. Mobile e TikTok, Facebook, Game - eita porasuna er sotru. Porar somoy mobile onno ghor e rakho. Porar por 30 minute mobile chalate parba.
+
+3. Na bujhle jigges koro - Na bujhle lojja koro na. Shikkhok ke jigges koro, Baba-Maa ke jigges koro, Bondhu ke jigges koro. Na bujhe mukhosto koro na - Bujhe poro. Bujhe porle mone thakbe, na bujhe porle vulbe.
+
+4. Likhe likhe poro - Likhe porle 2 bar mone thake - Chokh diye dekha + Hat diye lekha. Sutro, Tense, Songa - Likhe likhe mukhosto koro. Khata te 5 bar likho.
+
+5. Vor bela poro - Vor bela matha thanda thake - 5 ta theke 7 ta. Vor bela porle mone thake beshi. Rat e deri kore poro na - 10 ta te ghumao.
+
+6. Group study koro - Bondhu der sathe poro. Ekjon arekjon ke jigges koro. Bondhu ke shikhale nijer o mone thake.
+
+7. Proshno dekhe uttor lekhar practice koro - Gotobosor er proshno dekho. Model test dao. Somoy dhore likho - 3 ghontay pura proshno ses koro.
+
+8. Ghum thik moto dao - 7-8 ghonta ghum dorkar. Ghum kom hole matha kaj kore na. Rat jege poro na.
+
+9. Healthy khabar khao - Dim, Dudh, Mach, Fol khao. Fast food kom khao. Pani beshi khao - 2-3 litre.
+
+10. Namaz poro - Mon valo thakbe. Maa-Baba er dua nao - Maa-Baba dua korle porikkhay valo hoy. Shikkhok der somman koro.
+
+Porikkhar din: Sokale halka poro, besi chap nibe na. Kolom, Admit Card, Scale - ager din guchiye rakho. Porikkha hole somoy moto jao. Proshno valo kore poro. Jeta paro seta age likho. Lekha sundor koro. Ses e 10 minute age ses kore revise koro.
+
+Porikkhay fail korle: Mon kharap koro na. Fail mane ses na - Fail theke shikho. Onek boro manus fail korsen - Einstein, Edison, Bill Gates. Abar chesta koro. Kosto korle sofolota asbei.`;
+
+DB["islam"]=`Islam - Bistarit (Boro Kore):
+
+Islam shantir dhormo. Islam sobdo er ortho Shanti. Islam er 5 ti stombho: 1) Kalema - La ilaha illallah, Muhammadur Rasulullah. Allah chara kono mabud nai, Muhammad (SAW) Allah er rasul. 2) Namaz - Din e 5 wakto. 3) Roza - Romjan mas e 30 din. 4) Zakat - Dhoni der upor foroz - Sompod er 2.5% gorib ke dewa. 5) Hajj - Jibone 1 bar - Makkah te.
+
+Allah: Allah ek, tar kono shorik nai. Tini amader sristi korsen. Tini sob dekhsen, sob sunsen. Allah er 99 ta nam - Ar-Rahman (Porom Doyalu), Ar-Rahim (Porom Korunamoy), Al-Malik (Badshah). Allah ke khushi korle Jannat pawa jay.
+
+Nobi: Hazrat Muhammad (SAW) Islam er sesh nobi. Age aro nobi chilen - Adam, Nuh, Ibrahim, Musa, Isa (A). Sob nobi Allah er bani prochar korsen. Muhammad (SAW) sobcheye sera nobi - Tini sobar jonno rohomot.
+
+Quran: Quran Islam er pobitro grontho. 114 sura, 6236 ayat. Prothom ohi Iqra - Poro. Quran e jibon er sob niyom ase - Namaz, Roza, Bebsha, Poribar, Bichar. Quran porle sowab, bujhe porle aro beshi sowab.
+
+Hadis: Hadis Nobijir kotha, kaj, onumoti. Bukhari Sharif sobcheye sohi hadis er boi. Hadis e ase - Tomader moddhe uttom se, je Quran shikhe ebong shikhay. Arekta hadis - Porishkar porichonnota iman er ongsho.
+
+Mosjid: Mosjid Allah er ghor. Mosjid e Namaz porle 27 gun beshi sowab. Mosjid e jor e kotha bola uchit na. Mosjid porishkar rakha uchit. Bangladesh e 2 lokkho mosjid ase - Baitul Mukarram jatiyo mosjid.
+
+Islam er niyom: Sot kotha bolo. Maa-Baba ke somman koro. Gorib ke sahajjo koro. Churi, Mittha, Jhogra koro na. Porishkar thako. Porasuna koro. Protibeshi ke kosto dio na. Sob dhormo ke somman koro - Islam onno dhormo ke somman korte bole.
+
+Eid: Eid-ul-Fitr - Roza ses e. Eid-ul-Azha - Qurbani er Eid. Eid e sobai notun jama pore, semai khay, salami ney. Eid e gorib ke o khushi korte hoy - Fitra, Qurbani er mangso gorib ke dewa.`;
+
+function getAns(m){
+let low=m.toLowerCase().trim();
+let wantPic=low.includes("pic")||low.includes("chobi")||low.includes("photo")||low.includes("image");
+if(low.match(/[0-9]+\s*[\+\-\*\/]\s*[0-9]+/)){try{return "Somadhan: "+m+" = "+eval(m);}catch(e){}}
+if(low.includes("%")){let n=m.match(/\d+\.?\d*/g);if(n&&n.length>=2) return n[0]+"% of "+n[1]+" = "+(parseFloat(n[0])*parseFloat(n[1])/100);}
+if(low.includes("word")||low.includes("paragraph")||low.includes("rochona")||low.includes("essay")){
 let n=parseInt(m.match(/\d+/))||100;
-let topic=m.replace(/\d+/g,"").replace("word","").replace("paragraph","").replace("golpo","").replace("de","").trim()||"Riyan Ahmed";
-let base=topic+" amader jibone onek gurutto purno. Riyan Ahmed mone kore "+topic+" practice korle je keo valo korte pare. ";
-let words=base.split(" ");
-while(words.length<n) words.push(topic+" amader ke egiye niye jay.");
-r="Hoise Riyan! "+n+" word er Paragraph - "+topic+"\n\n"+words.slice(0,n).join(" ");
+let topic=m.replace(/\d+/g,"").replace(/word/gi,"").replace(/paragraph/gi,"").replace(/rochona/gi,"").replace(/essay/gi,"").replace(/de/gi,"").replace(/likh/gi,"").replace(/bolo/gi,"").replace(/pic/gi,"").replace(/chobi/gi,"").trim()||"Porasuna";
+let base=topic+" amader jibone onek guruttwopurno. "+topic+" somporke janle amra onek kisu shikhte pari. Eta amader chinta ke boro kore. Protidin "+topic+" niye chorcha korle jekeo valo korte pare. "+topic+" er karone amra notun bishoy jante pari. Bortoman juge "+topic+" aro beshi dorkar. ";
+let words=base.split(" "); while(words.length<n) words.push(topic+" amader ke egiye niye jay. "+topic+" chara jibon osompurno.");
+return topic+" - "+n+" Word er Paragraph\n\n"+words.slice(0,n).join(" ")+"\n\nWord Count: "+n;
 }
-else if(m.match(/[0-9]+\s*[\+\-\*\/]\s*[0-9]+/)){
-try{r=m+" = "+eval(m)+" Riyan, hoise!";}
-catch(e){r="Math ta vul hoise Riyan!";}
+if(wantPic){
+for(let k in PICS){ if(low.includes(k)) return "Ei nao "+k+" er pic:\n<img src='"+PICS[k]+"'>\n\n"+k+" somporke aro jante chaile likhun: '"+k+" somporke bolo'";
 }
-else if(m.includes("kemon")) r="Valo asi Riyan! Tui kemon?";
-else if(m.includes("free fire")) r="Free Fire ekta Battle Royale game! Garena banaishe!";
-else if(m.includes("google")) r="Google banaishe Larry Page ar Sergey Brin, 1998 sale!";
-else r="Bujhsi Riyan, tui koili '"+m+"' - eita onek sundor kotha! Aro jiga, ami ans dimu!";
-a.innerText="ZR AI: "+r;
+for(let k in PEOPLE){ if(low.includes(k)) return PEOPLE[k]+"\n\nPic: Google e '"+k+"' likhe search korle asol pic paben.";
+}
+return "Kiser pic chai? Likhun: 'Biral er pic de' ba 'Iphone er pic de' ba 'Gari er pic de'.";
+}
+if(low.includes("kemon")&&low.includes("dekhte")){
+for(let k in PEOPLE){ if(low.includes(k)) return PEOPLE[k]; }
+return "Kar kotha boltesen? Nam bolun - jemon 'Messi kemon dekhte?'";
+}
+for(let k in PEOPLE){ if(low.includes(k)) return PEOPLE[k]; }
+for(let k in DB){ if(low.includes(k)) return DB[k]; }
+if(low.includes("youtuber")||low.includes("youtube")) return PEOPLE["youtuber"];
+if(low.includes("tiktok")) return PEOPLE["tiktok"];
+if(low.includes("assalam")||low.includes("hi")||low.includes("hello")) return "Assalamu Alaikum! Valo asen? Mic e click kore bolun - 'Gach somporke bolo' ba 'Messi ke?'";
+if(low.includes("kemon")) return "Alhamdulillah valo asi. Apni kemon asen?";
+if(low.includes("tumi ke")) return "Ami ZR AI. 300KB asol haat e likha knowledge niye toiri.";
+if(low.includes("dhonnobad")) return "Apnakeo dhonnobad!";
+if(low.includes("bye")) return "Allah Hafez! Valo thakben.";
+return "Bujhsi: '"+m+"'\n\nEivabe likhun ba bolun:\n• 'Bangladesh somporke bolo'\n• 'Gach somporke bolo'\n• 'Nodi somporke bolo'\n• 'Maa somporke bolo'\n• 'Baba somporke bolo'\n• 'MrBeast ke?'\n• 'Biral er pic de'\n• '100 word e paragraph de Porasuna'";
+}
+function ask(){
+let inp=document.getElementById("q");let v=inp.value.trim();if(!v) return;
+addMsg(v,"me",false);inp.value="";
+setTimeout(()=>{addMsg(getAns(v),"ai");},400);
 }
 </script>
 </body>
