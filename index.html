@@ -251,3 +251,177 @@ setTimeout(()=>{addMsg(getAns(v),"ai");},300);
 </script>
 </body>
 </html>niye
+let chat=document.getElementById("chat");
+let voiceOn=true, recognizing=false;
+let rec=null, silenceTimer=null;
+let isSending=false, lastSent="";
+function cleanRepeat(text){
+let words=text.split(/\s+/).filter(Boolean);
+let out=[];
+for(let w of words){
+let lw=w.toLowerCase().replace(/[।?!,]/g,"");
+let prev=out[out.length-1]
+?out[out.length-1].toLowerCase()
+.replace(/[।?!,]/g,""):"";
+if(lw===prev) continue;
+out.push(w);
+}
+let cleaned=out.join(" ");
+let parts=cleaned.split(" ");
+if(parts.length>=4){
+let half=Math.floor(parts.length/2);
+if(parts.slice(0,half).join(" ")
+===parts.slice(half).join(" "))
+cleaned=parts.slice(0,half).join(" ");
+}
+return cleaned.trim();
+}
+function nowTime(){
+let d=new Date();
+let h=d.getHours();
+let m=d.getMinutes();
+let ap=h>=12?"PM":"AM";
+h=h%12||12;
+return h+":"+(m<10?"0"+m:m)+" "+ap;
+}
+function addMsg(t,w,canSpeak=true){
+let d=document.createElement("div");
+d.className="msg "+w;
+let btn=(w==='ai'&&canSpeak)
+?`<br><button class="speak"
+onclick="speakText(this.parentNode.innerText)">
+🔊 Sunun</button>`:"";
+d.innerHTML="<div class='bubble'>"+t
++"<div class='time'>"+nowTime()+"</div>"
++btn+"</div>";
+chat.appendChild(d);
+window.scrollTo(0,document.body.scrollHeight);
+if(w==='ai'&&voiceOn)
+speakText(t.replace(/<[^>]*>/g,'').slice(0,450));
+}
+function quick(t){
+document.getElementById("q").value=t;
+ask();
+}
+function toggleSpeak(){
+voiceOn=!voiceOn;
+document.getElementById("speakBtn")
+.innerText=voiceOn?"🔊 Voice: ON":"🔇 Voice: OFF";
+if(!voiceOn) stopSpeak();
+}
+function speakText(txt){
+try{
+window.speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(txt);
+u.lang='bn-BD';u.rate=0.95;
+let vs=window.speechSynthesis.getVoices();
+let bn=vs.find(v=>v.lang
+&&(v.lang.includes('bn')||v.lang.includes('hi')));
+if(bn)u.voice=bn;
+window.speechSynthesis.speak(u);
+}catch(e){}
+}
+function stopSpeak(){
+try{window.speechSynthesis.cancel();}catch(e){}
+}
+function toggleVoice(){
+if(recognizing) stopVoice();
+else startVoice();
+}
+function stopVoice(){
+try{if(rec) rec.stop();}catch(e){}
+recognizing=false;
+document.getElementById("bigMic")
+.classList.remove("listening");
+document.getElementById("miniMic")
+.classList.remove("listening");
+document.getElementById("bigMic").innerText="🎙️";
+}
+function startVoice(){
+let SR=window.SpeechRecognition
+||window.webkitSpeechRecognition;
+if(!SR){alert("Chrome e kholun.");return;}
+if(recognizing) return;
+stopSpeak();isSending=false;lastSent="";
+rec=new SR();
+rec.lang='bn-BD';
+rec.continuous=false;
+rec.interimResults=true;
+rec.maxAlternatives=1;
+rec.onstart=()=>{
+recognizing=true;
+document.getElementById("bigMic")
+.classList.add("listening");
+document.getElementById("miniMic")
+.classList.add("listening");
+document.getElementById("bigMic").innerText="🔴";
+document.getElementById("voiceText")
+.innerText="🎙️ Shuntasi... bolun, sesh hole 2 sec thamen...";
+};
+rec.onresult=(e)=>{
+let final="",interim="";
+for(let i=0;i<e.results.length;i++){
+if(e.results[i].isFinal)
+final+=e.results[i][0].transcript+" ";
+else interim+=e.results[i][0].transcript;
+}
+let combined=cleanRepeat(final+" "+interim);
+document.getElementById("voiceText")
+.innerText="Shunlam: "+combined;
+clearTimeout(silenceTimer);
+silenceTimer=setTimeout(()=>{
+if(isSending) return;
+let t=cleanRepeat(final+" "+interim).trim();
+if(!t) return;
+if(t===lastSent) return;
+isSending=true;lastSent=t;
+document.getElementById("q").value=t;
+document.getElementById("voiceText")
+.innerText="Tumi bolsila: "+t;
+stopVoice();ask();
+setTimeout(()=>{isSending=false;},1500);
+},1800);
+};
+rec.onerror=()=>{
+recognizing=false;
+document.getElementById("bigMic")
+.classList.remove("listening");
+document.getElementById("miniMic")
+.classList.remove("listening");
+document.getElementById("voiceText")
+.innerText="Mic e problem - abar click korun";
+};
+rec.onend=()=>{
+recognizing=false;
+document.getElementById("bigMic")
+.classList.remove("listening");
+document.getElementById("miniMic")
+.classList.remove("listening");
+document.getElementById("bigMic").innerText="🎙️";
+};
+try{rec.start();}catch(e){recognizing=false;}
+}
+function normalizeBangla(s){
+let t=s.toLowerCase().trim();
+let map={
+"তুই":"tui","তুমি":"tumi","ভালো":"valo",
+"কেমন":"kemon","আছো":"aso","হ্যালো":"hello",
+"হাই":"hi","পাগল":"pagol","কি":"ki",
+"কে":"ke","মেসি":"messi",
+"বাংলাদেশ":"bangladesh","গাছ":"gach",
+"নদী":"nodi","মা":"maa","বাবা":"baba",
+"বিড়াল":"biral","ছবি":"pic","পিক":"pic",
+"কুকুর":"kukur","গরু":"goru",
+"স্কুল":"school","বই":"boi","পানি":"pani",
+"সূর্য":"surjo","চাঁদ":"chand",
+"বৃষ্টি":"borsha","বিরিয়ানি":"biryani",
+"ফুটবল":"football","ক্রিকেট":"cricket",
+"ডাক্তার":"doctor","ধন্যবাদ":"dhonnobad",
+"আল্লাহ":"allah","নামাজ":"namaz",
+"কোরআন":"quran","কয়":"koy","কত":"koto"
+};
+for(let k in map){
+t=t.split(k).join(" "+map[k]+" ");
+}
+return t;
+}
